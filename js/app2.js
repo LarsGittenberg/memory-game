@@ -1,3 +1,9 @@
+// variable declarations
+var gameStarted = false;
+var cardPair = [];
+var cardPairAttr = [];
+var cardPairSymbol = [];
+
 /*
  * Create a list that holds all of your cards
  */
@@ -14,6 +20,7 @@ var cardList = ["fa-diamond", "fa-diamond",
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
 */
+
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -47,12 +54,36 @@ function generateFullDeck() {
  */
 function playMatchPair() {
     $('.card').on('click', function(evt) {
+        // start the timer
+        startTimer();
+        // start the counter function
+        counterMaker();
         // *  - display the card's symbol (put this functionality in another function that you call from this one)
         reveal(evt);
         // *  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
         addToOpenLists(evt);
         checkPair();
     });
+}
+
+function startTimer() {
+    if (!gameStarted) {
+        var timer = new Timer();
+        timer.start();
+        timer.addEventListener('secondsUpdated', function (e) {
+            $('.clock').html(timer.getTimeValues().toString());
+        });
+        gameStarted = true;
+        $('.restart').on('click', function() {
+            timer.reset();
+            $('.card').remove();
+            generateFullDeck();
+            playMatchPair();
+            purgePairLists();
+            counterMaker();
+            moveCounter[(moveCounter.length - 1)]();
+        });
+    }//end if
 }
 
 function reveal(evt) {
@@ -66,11 +97,11 @@ function addToOpenLists(evt) {
         var clickedCardAttr = clickedCard.attr('class');
         cardPairAttr.push(clickedCardAttr);
 
-
         var cardChild = $(evt.target).find('i');
         var childAttr = cardChild.attr('class');
         cardPairSymbol.push(childAttr);
 }
+
 /*
 *  - if the list already has another card, check to see if the two cards match
 */
@@ -80,18 +111,17 @@ function checkPair() {
 
                 if (cardPairSymbol[0] === cardPairSymbol[1]) {
                     console.log("match");
-                    //*    + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
+                    // if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
                     setTimeout(matchedPair, 1000);
                 }
-// *    + if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
-
+                // if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
                 else {
                     console.log("no match");
                     setTimeout(noMatchedPair, 1000);
                 }
         //two cards have just been evaluated, so increment counter
 // *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
-        moveCounter[0]();
+        moveCounter[(moveCounter.length - 1)]();
 // *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
 
         }
@@ -118,35 +148,43 @@ function noMatchedPair() {
     }
 }
 
-var cardPair = [];
-var cardPairAttr = [];
-var cardPairSymbol = [];
 
-/*
-function addCounter() {
-    counter++;
-    console.log(counter);
-    return counter;
-}
-*/
 
 var moveCounter = [];//an array designed to contain one closure function that increments counter
 function counterMaker() {
     var counter = 0;
     moveCounter.push(function() {
         counter++;
+        console.log('counter!')
         $('span.moves').html(counter);
+        //remove a star depending on counter value
+        var starScoreArray = $('ul.stars').find('i');
+        if (counter === 13) {
+            starScoreArray[0].className = "";
+        }
+        else if (counter === 21) {
+            starScoreArray[1].className = "";
+        }
     })
-
 }
-counterMaker();
+
+// if user clicks reload button at any time, reset game
+
+
+
+function purgePairLists() {
+    cardPair = [];
+    cardPairAttr = [];
+    cardPairSymbol = [];
+}
+
 
 generateFullDeck();
 playMatchPair();
 
-$('.restart').on('click', function() {
-    location.reload();
-})
+
+
+
 
 
 /*

@@ -8,6 +8,7 @@
     <link rel="stylesheet prefetch" href="https://fonts.googleapis.com/css?family=Coda">
     <link rel="stylesheet" href="css/app.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
 </head>
 <body>
 
@@ -25,9 +26,12 @@
 
         	<span class="moves">0</span> Moves
 
+
+
             <div class="restart">
         		<i class="fa fa-repeat"></i>
         	</div>
+            <div class="clock">00:00:00</div>
         </section>
 
         <ul class="deck">
@@ -46,6 +50,18 @@
         </ul>
     </div>
 
+    <div id="game-over-overlay" class="show">
+        <div class="game-over-content">
+            <h1 id="game-over-header">Game Over!</h1>
+            <h1 id='your-score'>Earned Stars:</h1>
+            <h1 id='your-moves'>Your Moves:</h1>
+            <h1 id='your-time'>Your Time:</h1>
+            <h1 class="fa fa-repeat"></h1>
+        </div>
+    </div>
+
     <script src="js/app2.js"></script>
+    <script src="js/easytimer.min.js"></script>
+
 </body>
 </html>
