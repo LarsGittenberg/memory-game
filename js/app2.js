@@ -1,8 +1,16 @@
 // variable declarations
-var gameStarted = false;
+var timerWasStarted = false;
 var cardPair = [];
 var cardPairAttr = [];
 var cardPairSymbol = [];
+var threeStars = '<li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li>';
+
+
+// easytimer.js code below from: http://albert-gonzalez.github.io/easytimer.js/
+var timer = new Timer();
+timer.addEventListener('secondsUpdated', function (e) {
+    $('.clock').html(timer.getTimeValues().toString());
+});
 
 /*
  * Create a list that holds all of your cards
@@ -20,7 +28,6 @@ var cardList = ["fa-diamond", "fa-diamond",
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
 */
-
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -50,14 +57,16 @@ function generateFullDeck() {
 }
 
 /*
- * set up the event listener for a card. If a card is clicked:
+ * set up the event listener for a card. If a card is clicked, call playMatchPair:
  */
 function playMatchPair() {
     $('.card').on('click', function(evt) {
-        // start the timer
-        startTimer();
+        //checkTimerStatus - and do either 3 things i)start ii)set event listener for reset or iii)do nothing.
+        checkTimerStatus();
+
         // start the counter function
         counterMaker();
+
         // *  - display the card's symbol (put this functionality in another function that you call from this one)
         reveal(evt);
         // *  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
@@ -66,65 +75,71 @@ function playMatchPair() {
     });
 }
 
-function startTimer() {
-    if (!gameStarted) {
-        var timer = new Timer();
+function checkTimerStatus() {
+    if (!timerWasStarted) {
+        //initAndStartTimer!
         timer.start();
-        timer.addEventListener('secondsUpdated', function (e) {
-            $('.clock').html(timer.getTimeValues().toString());
-        });
-        gameStarted = true;
-        $('.restart').on('click', function() {
-            timer.reset();
-            $('.card').remove();
-            generateFullDeck();
-            playMatchPair();
-            purgePairLists();
-            counterMaker();
-            moveCounter[(moveCounter.length - 1)]();
-        });
-    }//end if
+        timerWasStarted = true;
+    }
+    //so if timerWasStarted is true provide this eventlistener option to reset
+    $('.restart-clock').on('click', restartGame);
+    //unless restart-clock is clicked,  do nothing, exit function
 }
 
+function restartGame() {
+    timer.reset();
+    $('.card').remove();//this is doing the opposite of generateFullDeck();
+    generateFullDeck();
+    timerWasStarted = false;//this will enable timer.start() to be called by checkTimerStatus();
+    cardPair = [];
+    cardPairAttr = [];
+    cardPairSymbol = [];
+    moveCounter = [];
+    $('span.moves').html('0');// resets move 0 value
+    $('ul.stars').html(threeStars);// resets to 3stars again
+    playMatchPair();
+}
+
+
 function reveal(evt) {
+    console.log('reveal fx activated')
         $(evt.target).addClass('show open');
 }
 
 function addToOpenLists(evt) {
-        console.log('addToOpenLists called');
-        var clickedCard = $(evt.target);
-        cardPair.push(clickedCard);
-        var clickedCardAttr = clickedCard.attr('class');
-        cardPairAttr.push(clickedCardAttr);
+    console.log('addToOpenLists called');
+    var clickedCard = $(evt.target);
+    cardPair.push(clickedCard);
+    var clickedCardAttr = clickedCard.attr('class');
+    cardPairAttr.push(clickedCardAttr);
 
-        var cardChild = $(evt.target).find('i');
-        var childAttr = cardChild.attr('class');
-        cardPairSymbol.push(childAttr);
+    var cardChild = $(evt.target).find('i');
+    var childAttr = cardChild.attr('class');
+    cardPairSymbol.push(childAttr);
 }
 
 /*
 *  - if the list already has another card, check to see if the two cards match
 */
-
 function checkPair() {
-        if (cardPairSymbol.length === 2) {
+    if (cardPairSymbol.length === 2) {
 
-                if (cardPairSymbol[0] === cardPairSymbol[1]) {
-                    console.log("match");
-                    // if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
-                    setTimeout(matchedPair, 1000);
-                }
-                // if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
-                else {
-                    console.log("no match");
-                    setTimeout(noMatchedPair, 1000);
-                }
-        //two cards have just been evaluated, so increment counter
+        if (cardPairSymbol[0] === cardPairSymbol[1]) {
+            console.log("match");
+            // if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
+            setTimeout(matchedPair, 1000);
+        }
+        // if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
+        else {
+            console.log("no match");
+            setTimeout(noMatchedPair, 1000);
+        }
+    //two cards have just been evaluated, so increment counter
 // *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
-        moveCounter[(moveCounter.length - 1)]();
+    moveCounter[0]();
 // *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
 
-        }
+    }
 }
 
 function matchedPair(card) {
@@ -168,25 +183,8 @@ function counterMaker() {
     })
 }
 
-// if user clicks reload button at any time, reset game
-
-
-
-function purgePairLists() {
-    cardPair = [];
-    cardPairAttr = [];
-    cardPairSymbol = [];
-}
-
-
 generateFullDeck();
 playMatchPair();
-
-
-
-
-
-
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)
@@ -197,6 +195,4 @@ playMatchPair();
  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
-
-
 
