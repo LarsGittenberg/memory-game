@@ -28,14 +28,15 @@
 
 
 
-            <div class="restart-clock">
+            <div class="restart-clock game-dark-yellow">
         		<i class="fa fa-repeat"></i>
         	</div>
             <div class="clock">00:00:00</div>
         </section>
 
         <ul class="deck">
-           <!-- <li class="card match">
+           <!-- js will populate with
+           <li class="card match">
                 <i class="fa fa-anchor"></i>
             </li>
             <li class="card">
@@ -50,13 +51,13 @@
         </ul>
     </div>
 
-    <div id="game-over-overlay" class="show">
+    <div id="game-over-overlay" class="game-bkg-brown ">
         <div class="game-over-content">
-            <h1 id="game-over-header">Game Over!</h1>
-            <h1 id='your-score'>Earned Stars:</h1>
-            <h1 id='your-moves'>Your Moves:</h1>
-            <h1 id='your-time'>Your Time:</h1>
-            <h1 class="fa fa-repeat"></h1>
+            <h1 id="game-over-header" class="">Game Over!</h1>
+            <h1 id='your-score'>Earned Stars:&nbsp;<ul class ='final-score game-orange'></ul></h1>
+            <h1 id='your-moves'>Your Moves:&nbsp;<span class ='final-moves game-orange'></span></h1>
+            <h1 id='your-time'>Your Time:&nbsp;<span class='final-time game-orange'></span></h1>
+            <h1 class="fa fa-repeat game-dark-yellow"></h1>
         </div>
     </div>
 

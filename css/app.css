@@ -31,6 +31,7 @@ body {
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    height: 100%;
 }
 
 h1 {
@@ -98,14 +99,14 @@ h1 {
     margin-bottom: 10px;
 }
 
-.score-panel .stars {
+.score-panel .stars, ul.final-score {
     margin: 0;
     padding: 0;
     display: inline-block;
     margin: 0 5px 0 0;
 }
 
-.score-panel .stars li {
+.score-panel .stars li, ul.final-score li {
     list-style: none;
     display: inline-block;
 }
@@ -122,22 +123,21 @@ h1 {
     cursor: pointer;
 }
 
+/* game over overlay styles*/
 #game-over-overlay {
     /* Height & width depends on how you want to reveal the overlay (see JS below) */
-    height: 100%;
-    width: 0;
+    height: 0;
+    width: 100%;
     position: fixed; /* Stay in place */
     z-index: 1; /* Sit on top */
     left: 0;
     top: 0;
-    background-color: #524a44;
     overflow-x: hidden; /* Disable horizontal scroll */
-    transition: 500ms ease-in-out; /* 0.3 second transition effect to slide in
-    the overlay (height or width, depending on reveal) */
+    transition: 500ms ease-in-out;
 }
 
-#game-over-report.show {
-    width: 100%;
+#game-over-overlay.show {
+    height: 100%;
 }
 
 .game-over-content {
@@ -153,6 +153,59 @@ h1 {
 h1#game-over-header, h1.fa {
     font-size: 4em;
 }
+
+h1.fa-repeat {
+    cursor: pointer;
+}
+
+/* color styles */
+.game-orange {
+    color: #d14d2d!important;
+}
+
+.game-green {
+    color: #5c8347!important;
+}
+
+.game-dark-yellow {
+    color: #d9ac59!important;
+}
+
+.game-yellow {
+    color: #ffec7a!important;
+}
+
+.game-brown {
+    color: #524a44!important;
+}
+
+.game-bkg-orange {
+    background-color: #d14d2d!important;
+}
+
+.game-bkg-green {
+    background-color: #5c8347!important;
+}
+
+.game-bkg-dark-yellow {
+    background-color: #d9ac59!important;
+}
+
+.game-bkg-yellow {
+    background-color: #ffec7a!important;
+}
+
+.game-bkg-brown {
+    background-color: #524a44!important;
+}
+
+
+
+
+
+
+
+
 
 
 
