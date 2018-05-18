@@ -1,20 +1,22 @@
-# Memory Game Project
+# Matching Card Memory Game Project
+
+- This is a student submission for [Udacity's Front End Web Development Nanodegree](https://www.udacity.com/course/front-end-web-developer-nanodegree--nd001). 
+- It has been cloned from GitHub [here](https://github.com/udacity/fend-project-memory-game).
+- You can view Udacity's rubric/instructions for students in the [Udacity Classroom](https://classroom.udacity.com/me).
 
 ## Table of Contents
 
-* [Instructions](#instructions)
-* [Contributing](#contributing)
+- [Instructions](#instructions)
+
 
 ## Instructions
 
-The starter project has some HTML and CSS styling to display a static version of the Memory Game project. You'll need to convert this project from a static project to an interactive one. This will require modifying the HTML and CSS files, but primarily the JavaScript file.
+Feel free to clone/download from here/Github.
+For basic functionality, you will need the following files:
+- index.html
+- app2.js
+- app.css
+- jpg file from the img folder
 
-To get started, open `js/app.js` and start building out the app's functionality
+You will also need access to several CDN called in the js scripts, namely jQuery's and Font-Awesome (to access icons). 
 
-For specific, detailed instructions, look at the project instructions in the [Udacity Classroom](https://classroom.udacity.com/me).
-
-## Contributing
-
-This repository is the starter code for _all_ Udacity students. Therefore, we most likely will not accept pull requests.
-
-For details, check out [CONTRIBUTING.md](CONTRIBUTING.md).
