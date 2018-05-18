@@ -50,7 +50,7 @@ If you change the folder structure, you will need to change the file path src/hr
   -- how many stars the player has remaining (more stars mean fewer moves)
   -- the total number of moves
   -- the time taken to complete the game
-  -- a replay button is provided to restart the game
+  -- a replay button is provided to restart and reset the game
 
 ## <a name="gamegoal"></a>Game Goal
 - The goal is to match all 8 pairs of cards, while accrueing as little number of 'moves' possible, during the least amount of time, while maintaining a high score level of 3 stars.
