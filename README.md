@@ -10,8 +10,9 @@
 
 - [Dependencies](#dependencies)
 - [Instructions](#instructions)
-- [Game Behavior](#gamebehavior)
 - [Game Goal](#gamegoal)
+- [Game Behavior](#gamebehavior)
+
 
 
 ## Dependencies
@@ -34,6 +35,8 @@ For basic functionality, the following files are needed:
 All files listed above are already included in this repository.
 If you change the folder structure, you will need to change the file path src/href calls.
 
+## <a name="gamegoal"></a>Game Goal
+- The goal is to match all 8 pairs of cards, while accrueing as little number of 'moves' possible, during the least amount of time, while maintaining a high score level of 3 stars.
 
 ## <a name="gamebehavior"></a>Game Behavior
 - There are 8 pairs of 'face down' cards, arranged in a 4x4 grid
@@ -52,7 +55,6 @@ If you change the folder structure, you will need to change the file path src/hr
   -- the time taken to complete the game
   -- a replay button is provided to restart and reset the game
 
-## <a name="gamegoal"></a>Game Goal
-- The goal is to match all 8 pairs of cards, while accrueing as little number of 'moves' possible, during the least amount of time, while maintaining a high score level of 3 stars.
+
 
 
