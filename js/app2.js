@@ -246,7 +246,7 @@ function pairMatchedCounterMaker() {
     pairCounter = 0;
     allMatchedPairsCounter.push( function() {
         pairCounter++;
-        if (pairCounter === 2) {
+        if (pairCounter === 8) {
             //open game over overlay
             setTimeout(gameOver, 800);
         }
