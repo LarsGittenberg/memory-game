@@ -150,12 +150,14 @@ h1 {
 
 }
 
-h1#game-over-header, h1.fa {
+h1#game-over-header {
     font-size: 4em;
 }
 
 h1.fa-repeat {
     cursor: pointer;
+    margin-top: 100px;
+    font-size: 4em;
 }
 
 /* color styles */
@@ -179,6 +181,10 @@ h1.fa-repeat {
     color: #524a44!important;
 }
 
+.game-dark-coffee {
+    color: #373737!important;
+}
+
 .game-bkg-orange {
     background-color: #d14d2d!important;
 }
@@ -197,6 +203,10 @@ h1.fa-repeat {
 
 .game-bkg-brown {
     background-color: #524a44!important;
+}
+
+.game-bkg-dark-coffee {
+    background-color: #373737!important;
 }
 
 
