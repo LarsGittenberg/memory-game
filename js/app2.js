@@ -60,16 +60,16 @@ function shuffle(array) {
  *   - add each card's HTML to the page
 */
 function generateFullDeck() {
-        let newCardList = shuffle(cardList);
-    	$.each(newCardList, function(index, value){
-    		$('.deck').append('<li class="card"><i class="fa ' +  value + ' "></i></li>');
-    	})
+    let newCardList = shuffle(cardList);
+	$.each(newCardList, function(index, value){
+		$('.deck').append('<li class="card"><i class="fa ' +  value + ' "></i></li>');
+	})
 }
 
 
 /*
  * set up the event listener for a card. If a card is clicked,
- call a series of functions (playMatchPair is instantiated in
+ call a series of functions (playMatchPair is instantiated
  i)once on load of this file, ii) on restart, when restartGame() is called
  */
 function playMatchPair() {
@@ -107,11 +107,12 @@ function restartGame() {
     $('.card').remove();//this is doing the opposite of generateFullDeck();
     generateFullDeck();
     timerWasStarted = false;//this boolean switch reset will re-enable timer.start() to be called by checkTimerStatus()
+    
     cardPair = [];
-    //cardPairAttr = [];
     cardPairSymbol = [];
     moveCounter = [];//reset/empty out our counter function closure created by counterMaker()
     allMatchedPairsCounter = [];
+    
     counterMaker();
     pairMatchedCounterMaker();
     $('span.moves').html('0');// resets move 0 value
@@ -122,9 +123,9 @@ function restartGame() {
 
 
 function reveal(evt) {
-        $(evt.target).addClass('show open');
-        $(evt.target).css("pointer-events", "none");// this code 'desensitizes' event listener from responding (fast second click) while card is "showing"/open
-        //from: https://stackoverflow.com/questions/1263042/how-to-temporarily-disable-a-click-handler-in-jquery
+    $(evt.target).addClass('show open');
+    $(evt.target).css("pointer-events", "none");// this code 'desensitizes' event listener from responding (fast second click) while card is "showing"/open
+    //from: https://stackoverflow.com/questions/1263042/how-to-temporarily-disable-a-click-handler-in-jquery
 }
 
 
