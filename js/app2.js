@@ -253,10 +253,12 @@ function pairMatchedCounterMaker() {
 
 /*     ************ INITIAL FUNCTION CALLS  ****************     */
 // THESE FUNCTIONS WILL INSTANTIATE AT THE VERY START/ON LOAD
+
 generateFullDeck();
 playMatchPair();
 
 // THESE FUNCTIONS WILL INSTATIATE AND INITIALIZE COUNTER CLOSURES ON START/LOAD
+
 counterMaker();
 pairMatchedCounterMaker();
 
