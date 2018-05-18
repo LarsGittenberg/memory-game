@@ -3,10 +3,14 @@
 
 // variable declarations
 var timerWasStarted = false;//boolean switch used to ensure timer.start() only runs once per game session, until game is reset
-var cardPair = [];// array storing 2 html objects, objects later added/removed of classes eg. addClass('match') or removeClass('show open')
-//var cardPairAttr = [];
-var cardPairSymbol = [];// array storing  max 2 strings, strings later compared for a match eg 'fa fa-leaf'
-var threeStars = '<li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li>';
+
+var cardPair = [];// array dynamically storing 2 html objects, objects later added/removed of classes eg. addClass('match') or removeClass('show open')
+
+var cardPairSymbol = [];// array dynamically storing  max 2 strings, strings later compared for a match eg 'fa fa-leaf'
+
+var threeStars = '<li><i class="fa fa-star"></i></li>\
+<li><i class="fa fa-star"></i></li>\
+<li><i class="fa fa-star"></i></li>';
 
 
 // easytimer.js code below from: http://albert-gonzalez.github.io/easytimer.js/
@@ -68,10 +72,6 @@ function playMatchPair() {
     $('.card').on('click', function(evt) {
         //checkTimerStatus - and do either 3 things i)start ii)set event listener for reset or iii)do nothing.
         checkTimerStatus();
-
-        // start the counter functionS: COULD THESE BE PLACED SOMEPLACE SO THAT THEY'RE NOT ALWAYS CALLLED ON CARD CLICK?
-        //counterMaker();
-        //pairMatchedCounter();
 /*
  *  - display the card's symbol (put this functionality in another function that you call from this one)
 */
@@ -79,7 +79,7 @@ function playMatchPair() {
 /*
  *  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
 */
-        addToOpenLists(evt);
+        addToTempOpenLists(evt);
         checkPair();
     });
 }
@@ -88,7 +88,6 @@ function playMatchPair() {
 
 function checkTimerStatus() {
     if (!timerWasStarted) {
-        //initAndStartTimer!
         timer.start();
         timerWasStarted = true;
     }
@@ -103,15 +102,14 @@ function restartGame() {
     timer.reset();
     $('.card').remove();//this is doing the opposite of generateFullDeck();
     generateFullDeck();
-    timerWasStarted = false;//this boolean switch will re-enable timer.start() to be called by checkTimerStatus()
+    timerWasStarted = false;//this boolean switch reset will re-enable timer.start() to be called by checkTimerStatus()
     cardPair = [];
     //cardPairAttr = [];
     cardPairSymbol = [];
-    moveCounter = [];//reset our counter function closure created by counterMaker()
+    moveCounter = [];//reset/empty out our counter function closure created by counterMaker()
+    allMatchedPairsCounter = [];
     counterMaker();
-
-    // array = [];
-    pairMatchedCounter();
+    pairMatchedCounterMaker();
     $('span.moves').html('0');// resets move 0 value
     $('ul.stars').html(threeStars);// resets to 3stars again
     playMatchPair();
@@ -120,7 +118,6 @@ function restartGame() {
 
 
 function reveal(evt) {
-    //console.log('reveal fx activated')
         $(evt.target).addClass('show open');
         $(evt.target).css("pointer-events", "none");// this code 'desensitizes' event listener from responding (fast second click) while card is "showing"/open
         //from: https://stackoverflow.com/questions/1263042/how-to-temporarily-disable-a-click-handler-in-jquery
@@ -128,13 +125,12 @@ function reveal(evt) {
 
 
 
-function addToOpenLists(evt) {
-
+function addToTempOpenLists(evt) {
+    // collect temp list of html objects/cards
     var clickedCard = $(evt.target);
     cardPair.push(clickedCard);
-    //var clickedCardAttr = clickedCard.attr('class');
-    //cardPairAttr.push(clickedCardAttr);
 
+    // collect temp list of fa classes ie fa fa-leaf etc.
     var cardChild = $(evt.target).find('i');
     var childAttr = cardChild.attr('class');
     cardPairSymbol.push(childAttr);
@@ -167,20 +163,16 @@ function checkPair() {
 
 
 function matchedPair(card) {
-    console.log('matchedPair instantiated')
     for (var i = 0; i<cardPair.length; i++) {
         $(cardPair[i]).addClass('match');
         $(cardPair[i]).off();
         //console.log(cardPair);
     }
-    // trigger a matched-pair counter
-    console.log('allMatchedPairsCounter called');
+    // trigger a matched-pair counter to increment up to 8 pairs
     allMatchedPairsCounter[0]();
 
-    cardPair.splice(0, 2);
-    cardPairSymbol.splice(0,2);
-
-    console.log(cardPair + " should be empty");
+    cardPair.splice(0, 2); //empty out temp array pair lists
+    cardPairSymbol.splice(0,2); //empty out temp array pair lists
 }
 
 
@@ -190,16 +182,17 @@ function noMatchedPair() {
         $(cardPair[i]).removeClass('show open');
         $(cardPair[i]).css("pointer-events", "auto");//this re-activates event listener 'sensitivity'
         //from: https://stackoverflow.com/questions/1263042/how-to-temporarily-disable-a-click-handler-in-jquery
-        console.log(cardPair); //bug: sometimes it is three b/c user clicks 3 in a row VERY FAST
+        console.log(cardPair); //bug: should contain 2 items, sometimes it is 3 instad b/c user clicks 3 in a row VERY FAST
     }
-    //bug fix: instead of cardPair.splice(0, 2), use (0, 3) - sometimes arrays have 3 items when user clicks 3 in a row VERY FAST
+    //bug fix: instead of cardPair.splice(0, 2), use (0, 3) - sometimes array has 3 items when user clicks 3 in a row VERY FAST
     cardPair.splice(0, 3); //empties array
     cardPairSymbol.splice(0,3); // emties array
-
-    console.log(cardPair.length + ' ' + cardPairSymbol.length + ' values of cardPair and cardPairSymbol');
 }
 
 
+/*
+ *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
+ */
 function gameOver() {
     //slide the overlay
     $('#game-over-overlay').addClass('show');
@@ -242,11 +235,10 @@ function counterMaker() {
 }
 
 var allMatchedPairsCounter = [];// an array designed to contain one closure function that increments with every matched pair
-function pairMatchedCounter() {
+function pairMatchedCounterMaker() {
     pairCounter = 0;
     allMatchedPairsCounter.push( function() {
         pairCounter++;
-        console.log(pairCounter)
         if (pairCounter === 8) {
             //open game over overlay
             setTimeout(gameOver, 800);
@@ -254,13 +246,13 @@ function pairMatchedCounter() {
     })
 }
 
-// CALLING THESE FUNCTIONS TO INSTANTIATE AT THE VERY START/ON LOAD
+// THESE FUNCTIONS WILL INSTANTIATE AT THE VERY START/ON LOAD
 generateFullDeck();
 playMatchPair();
 
-// CALLING THESE FUNCTIONS TO INSTATIATE AND INITIALIZE COUNTER CLOSURES
+// THESE FUNCTIONS WILL INSTATIATE AND INITIALIZE COUNTER CLOSURES
 counterMaker();
-pairMatchedCounter();
+pairMatchedCounterMaker();
 
 //Udacity Code Project Instructions
 /*
