@@ -11,6 +11,7 @@
 - [Dependencies](#dependencies)
 - [Instructions](#instructions)
 - [Game Behavior](#gamebehavior)
+- [Game Goal](#gamegoal)
 
 
 ## Dependencies
@@ -30,16 +31,17 @@ For basic functionality, the following files are needed:
 - app.css
 - jpg file from the img folder
 
+All files listed above are already included in this repository.
 If you change the folder structure, you will need to change the file path src/href calls.
 
 
 ## <a name="gamebehavior"></a>Game Behavior
-- There are 8 pairs of face down cards, arranged in a 4x4 grid
+- There are 8 pairs of 'face down' cards, arranged in a 4x4 grid
 - Goal is to match the pairs together
-- Card is selected with a user click, where the card flips to face up
+- Card is selected with a user click, where the selected card flips to 'face up'
 - Only two cards are viewable at any given time during selection
-- Pairs are matched when pairs are consecutively chosen
-- If pairs clicked are not a match, cards revert to face down orientation
+- Pairs are matched when pairs are consecutively chosen - from this point they will remain 'face-up'
+- If pairs clicked are not a match, cards revert to 'face down' orientation
 - During game play, a timer is activated, displayed top right
 - During game play, the number of moves is registered, displayed top left
   -- a move is defined as every 2 cards being chosen for a pair-match
@@ -50,7 +52,7 @@ If you change the folder structure, you will need to change the file path src/hr
   -- the time taken to complete the game
   -- a replay button is provided to restart the game
 
-
-
+## <a name="gamegoal"></a>Game Goal
+- The goal is to match all 8 pairs of cards, while accrueing as little number of 'moves' possible, during the least amount of time, while maintaining a high score level of 3 stars.
 
 
