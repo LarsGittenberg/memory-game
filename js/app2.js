@@ -15,7 +15,7 @@ const threeStars = '<li><i class="fa fa-star"></i></li>\
 
 
 // easytimer.js code below from: http://albert-gonzalez.github.io/easytimer.js/
-var timer = new Timer();
+let timer = new Timer();
 timer.addEventListener('secondsUpdated', function (e) {
     $('.clock').html(timer.getTimeValues().toString());
 });
@@ -23,7 +23,7 @@ timer.addEventListener('secondsUpdated', function (e) {
 /*
  * Create a list that holds all of your cards
  */
-let cardList = ["fa-diamond", "fa-diamond",
+const cardList = ["fa-diamond", "fa-diamond",
                 "fa-paper-plane-o", "fa-paper-plane-o",
                 "fa-anchor", "fa-anchor",
                 "fa-bolt", "fa-bolt",
@@ -31,6 +31,15 @@ let cardList = ["fa-diamond", "fa-diamond",
                 "fa-leaf", "fa-leaf",
                 "fa-bicycle", "fa-bicycle",
                 "fa-bomb", "fa-bomb",];
+
+/*
+Udacity reviewer suggested concat() technique to 'duplicate' items in an array: I will not choose this method
+as the random behavior I want isn't accomplished. Matching game becomes easier: concat() method prevents
+a match that is horizontally side by side.
+
+const myArray = [1, 2, 3];
+const doubledArray = myArray.concat(myArray);
+*/
 
 /*
  * Display the cards on the page
@@ -42,7 +51,7 @@ let cardList = ["fa-diamond", "fa-diamond",
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
-    var currentIndex = array.length, temporaryValue, randomIndex;
+    let currentIndex = array.length, temporaryValue, randomIndex;
 
     while (currentIndex !== 0) {
         randomIndex = Math.floor(Math.random() * currentIndex);
@@ -107,12 +116,12 @@ function restartGame() {
     $('.card').remove();//this is doing the opposite of generateFullDeck();
     generateFullDeck();
     timerWasStarted = false;//this boolean switch reset will re-enable timer.start() to be called by checkTimerStatus()
-    
+
     cardPair = [];
     cardPairSymbol = [];
     moveCounter = [];//reset/empty out our counter function closure created by counterMaker()
     allMatchedPairsCounter = [];
-    
+
     counterMaker();
     pairMatchedCounterMaker();
     $('span.moves').html('0');// resets move 0 value
