@@ -33,15 +33,6 @@ const cardList = ["fa-diamond",
                 "fa-bomb",];
 
 /*
-Udacity reviewer suggested concat() technique to 'duplicate' items in an array: I will not choose this method
-as the random behavior I want isn't accomplished. Matching game becomes easier: concat() method prevents
-a match that is horizontally side by side.
-
-const myArray = [1, 2, 3];
-const doubledArray = myArray.concat(myArray);
-*/
-
-/*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
 */
