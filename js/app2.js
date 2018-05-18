@@ -1,7 +1,8 @@
 
-// ************ Udacity Memory Game Project JS ****************
+/*     ************ Udacity Memory Game Project JS ****************     */
 
-// variable declarations
+
+/*     ************ VARIABLE DECLARATIONS  ****************     */
 var timerWasStarted = false;//boolean switch used to ensure timer.start() only runs once per game session, until game is reset
 
 var cardPair = [];// array dynamically storing 2 html objects, objects later added/removed of classes eg. addClass('match') or removeClass('show open')
@@ -35,6 +36,9 @@ var cardList = ["fa-diamond", "fa-diamond",
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
 */
+
+
+/*     ************ VARIABLE DECLARATIONS  ****************     */
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -171,8 +175,9 @@ function matchedPair(card) {
     // trigger a matched-pair counter to increment up to 8 pairs
     allMatchedPairsCounter[0]();
 
-    cardPair.splice(0, 2); //empty out temp array pair lists
-    cardPairSymbol.splice(0,2); //empty out temp array pair lists
+    cardPair = []; //empty out temp array pair lists -NOTE was originally using cardPair.splice(0, 2);
+    cardPairSymbol = []; //empty out temp array pair lists
+
 }
 
 
@@ -182,17 +187,15 @@ function noMatchedPair() {
         $(cardPair[i]).removeClass('show open');
         $(cardPair[i]).css("pointer-events", "auto");//this re-activates event listener 'sensitivity'
         //from: https://stackoverflow.com/questions/1263042/how-to-temporarily-disable-a-click-handler-in-jquery
-        console.log(cardPair); //bug: should contain 2 items, sometimes it is 3 instad b/c user clicks 3 in a row VERY FAST
+
     }
-    //bug fix: instead of cardPair.splice(0, 2), use (0, 3) - sometimes array has 3 items when user clicks 3 in a row VERY FAST
-    cardPair.splice(0, 3); //empties array
-    cardPairSymbol.splice(0,3); // emties array
-}
+
+    cardPair = []; //empties array list -NOTE was using this code instead: cardPair.splice(0, 3) especially for 3 fast clicks
+    cardPairSymbol = []; //empties array list
+ }
 
 
-/*
- *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
- */
+// function definition which displays message with the final score, triggered by allMatchedPairsCounter (reaching max 8)
 function gameOver() {
     //slide the overlay
     $('#game-over-overlay').addClass('show');
@@ -234,23 +237,28 @@ function counterMaker() {
     })
 }
 
+
+/*
+ *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
+ */
 var allMatchedPairsCounter = [];// an array designed to contain one closure function that increments with every matched pair
 function pairMatchedCounterMaker() {
     pairCounter = 0;
     allMatchedPairsCounter.push( function() {
         pairCounter++;
-        if (pairCounter === 8) {
+        if (pairCounter === 2) {
             //open game over overlay
             setTimeout(gameOver, 800);
         }
     })
 }
 
+/*     ************ INITIAL FUNCTION CALLS  ****************     */
 // THESE FUNCTIONS WILL INSTANTIATE AT THE VERY START/ON LOAD
 generateFullDeck();
 playMatchPair();
 
-// THESE FUNCTIONS WILL INSTATIATE AND INITIALIZE COUNTER CLOSURES
+// THESE FUNCTIONS WILL INSTATIATE AND INITIALIZE COUNTER CLOSURES ON START/LOAD
 counterMaker();
 pairMatchedCounterMaker();
 
