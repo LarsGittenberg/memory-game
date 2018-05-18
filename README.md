@@ -10,7 +10,7 @@
 
 - [Dependencies](#dependencies)
 - [Instructions](#instructions)
-- [Game Behavior](#game behavior)
+- [Game Behavior](#gamebehavior)
 
 
 ## Dependencies
@@ -33,7 +33,7 @@ For basic functionality, the following files are needed:
 If you change the folder structure, you will need to change the file path src/href calls.
 
 
-## Game Behavior
+## <a name="gamebehavior"></a>Game Behavior
 - There are 8 pairs of face down cards, arranged in a 4x4 grid
 - Goal is to match the pairs together
 - Card is selected with a user click, where the card flips to face up
@@ -42,13 +42,13 @@ If you change the folder structure, you will need to change the file path src/hr
 - If pairs clicked are not a match, cards revert to face down orientation
 - During game play, a timer is activated, displayed top right
 - During game play, the number of moves is registered, displayed top left
--- a move is defined as every 2 cards being chosen for a pair-match
+  -- a move is defined as every 2 cards being chosen for a pair-match
 - At the start of the game, player has 3 stars, when 12 moves are accrued, 1 star is subtracted, and after 22 moves, another star is subtracted
 - When all 16 cards have been matched, the game concludes with a 'Game Over!' overlay, with a report on
--- how many stars the player has remaining (more stars mean fewer moves)
--- the total number of moves
--- the time taken to complete the game
--- a replay button is provided to restart the game
+  -- how many stars the player has remaining (more stars mean fewer moves)
+  -- the total number of moves
+  -- the time taken to complete the game
+  -- a replay button is provided to restart the game
 
 
 
