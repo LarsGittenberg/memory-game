@@ -121,6 +121,11 @@ h1 {
 .score-panel .restart-clock {
     float: right;
     cursor: pointer;
+    transition: 100ms ease-in-out;
+}
+
+.score-panel .restart-clock:hover {
+    color: white!important;
 }
 
 /* game over overlay styles*/
@@ -158,6 +163,11 @@ h1.fa-repeat {
     cursor: pointer;
     margin-top: 100px;
     font-size: 4em;
+    transition: 100ms ease-in-out;
+}
+
+h1.fa-repeat:hover {
+    color: white!important;
 }
 
 /* color styles */
