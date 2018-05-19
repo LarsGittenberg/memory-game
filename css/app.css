@@ -193,6 +193,10 @@ h1.fa-repeat:hover {
     color: #373737!important;
 }
 
+.game-pewter {
+    color: #9e9e9e!important;
+}
+
 .game-bkg-orange {
     background-color: #d14d2d!important;
 }
@@ -215,6 +219,10 @@ h1.fa-repeat:hover {
 
 .game-bkg-dark-coffee {
     background-color: #373737!important;
+}
+
+.game-bkg-pewter {
+    background-color: #9e9e9e!important;
 }
 
 /* media querries*/

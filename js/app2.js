@@ -37,9 +37,6 @@ const cardList = ["fa-diamond",
  *   - shuffle the list of cards using the provided "shuffle" method below
 */
 
-
-/*     ************ VARIABLE DECLARATIONS  ****************     */
-
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
     let currentIndex = array.length, temporaryValue, randomIndex;
