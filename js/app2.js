@@ -9,9 +9,10 @@ let cardPair = [];// array dynamically storing 2 html objects, objects later add
 
 let cardPairSymbol = [];// array dynamically storing  max 2 strings, strings later compared for a match eg 'fa fa-leaf'
 
-const threeStars = '<li><i class="fa fa-star"></i></li>\
-<li><i class="fa fa-star"></i></li>\
-<li><i class="fa fa-star"></i></li>';
+//https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals
+const threeStars = `<li><i class="fa fa-star"></i></li>
+<li><i class="fa fa-star"></i></li>
+<li><i class="fa fa-star"></i></li>`;
 
 
 // easytimer.js code below from: http://albert-gonzalez.github.io/easytimer.js/
