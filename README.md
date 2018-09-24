@@ -4,6 +4,7 @@
 - This project is a student submission for [Udacity's Front End Web Development Nanodegree](https://www.udacity.com/course/front-end-web-developer-nanodegree--nd001).
 - It has been cloned from GitHub [here](https://github.com/udacity/fend-project-memory-game).
 - You can view Udacity's rubric/instructions for students in the [Udacity Classroom](https://classroom.udacity.com/me).
+- [Demo Game](http://www.lawrencegetubig.com/memorygame/index.html)
 
 
 ## Table of Contents
